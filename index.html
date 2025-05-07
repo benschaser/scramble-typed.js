@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="scrambleTyped.js"></script>
+    <style>
+        * {
+            font-family: sans-serif;
+        }
+        .scrambling {
+            opacity: 0.4;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new ScrambleTyped('#scramble', {
+                text: "You don't have to be a hacker to look like one.",
+                charset: 'abcdefghijklmnopqrstuvwxyz',
+                scrambleDuration: 200,
+                scrambleClasses: ['scrambling'],
+                preserveSpaces: true
+            })
+        })
+        
+    </script>
+</head>
+<body>
+    <div id="scramble"></div>
+</body>
+</html>
