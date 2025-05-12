@@ -10,19 +10,25 @@ class ScrambleTyped {
         this.scrambleClasses = options.scrambleClasses || [];
         this.charset = options.charset || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         this.preserveSpaces = options.preserveSpaces || false;
+        this.restoreOnEnd = options.restoreOnEnd || true;
+
+        // callbacks
+        this.onStart = options.onStart || null;
+        this.onEnd = options.onComplete || null;
+
         this.currentIndex = 0;
         this.el.innerText = "";
         if (!this.useStartTrigger) this.start();
     }
 
     //for future development
-    processNode(node, parentEl) {
+    #processNode(node, parentEl) {
         if (node.nodeType === Node.TEXT_NODE) {
             const text = node.textContent;
             for (const char of text) {
                 const span = document.createElement('span');
                 parentEl.appendChild(span);
-                this.scrambleChar(char, span);
+                this.#scrambleChar(char, span);
             }
         }
         else if (node.nodeType === Node.ELEMENT_NODE) {
@@ -32,13 +38,23 @@ class ScrambleTyped {
             }
             parentEl.appendChild(el);
             for (const child of node.childNodes) {
-                this.processNode(child, el);
+                this.#processNode(child, el);
             }
         }
     }
-
-    scrambleChar(finalChar, span) {
+    #addScrambleClasses(el) {
+        this.scrambleClasses.forEach(c => {
+            el.classList.add(c);
+        });
+    }
+    #removeScrambleClasses(el) {
+        this.scrambleClasses.forEach(c => {
+            el.classList.remove(c);
+        });
+    }
+    #scrambleChar(finalChar, span) {
         if (this.preserveSpaces && finalChar === ' ') {
+            this.#removeScrambleClasses(span);
             span.textContent = finalChar;
             return;
         }
@@ -48,9 +64,7 @@ class ScrambleTyped {
             const elapsed = Date.now() - startTime;
             if (elapsed >= this.scrambleDuration) {
                 span.textContent = finalChar;
-                this.scrambleClasses.forEach(c => {
-                    span.classList.remove(c);
-                });
+                this.#removeScrambleClasses(span);
                 return;
             }
 
@@ -62,26 +76,36 @@ class ScrambleTyped {
         scramble();
     }
 
-    type() {
+    #type() {
         if (this.currentIndex >= this.text.length) return;
 
         const char = this.text[this.currentIndex];
         const span = document.createElement('span');
-        this.scrambleClasses.forEach(c => {
-            span.classList.add(c);
-        });
+        this.#addScrambleClasses(span);
         this.el.appendChild(span);
-        this.scrambleChar(char, span);
+        this.#scrambleChar(char, span);
 
         this.currentIndex++;
-        setTimeout(() => (this.type()), this.typeSpeed);
+        setTimeout(() => (this.#type()), this.typeSpeed);
     }
+
+    // public methods
     start() {
         const fullDuration = (this.text.length * this.typeSpeed) + (this.scrambleDuration);
-        setTimeout(() => {
-      	    this.el.innerHTML = this.text;
-        }, (fullDuration + 100));
-    	this.type();
+        if (this.restoreOnEnd) {
+            setTimeout(() => {
+                this.el.innerHTML = this.text;
+            }, (fullDuration + 100));
+        }
+        if (this.onComplete && typeof this.onComplete === 'function') {
+            setTimeout(() => {
+                this.onComplete();
+            }, (fullDuration + 100));
+        }
+        if (this.onStart && typeof this.onStart === 'function') {
+            this.onStart();
+        }
+    	this.#type();
     }
 }
 
