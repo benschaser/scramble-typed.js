@@ -1,8 +1,8 @@
 
 class ScrambleTyped {
     constructor(el, options) {
-        this.el = typeof el === 'string' ? document.querySelector(el) : el;
-        this.text = options.text || this.el.innerText;
+        this.target = typeof el === 'string' ? document.querySelector(el) : el;
+        this.text = options.text || this.target.innerText;
         this.useStartTrigger = options.useStartTrigger || false;
         this.typeSpeed = options.typeSpeed || 50;
         this.scrambleDuration = options.scrambleDuration  || 500;
@@ -14,33 +14,16 @@ class ScrambleTyped {
 
         // callbacks
         this.onStart = options.onStart || null;
-        this.onEnd = options.onComplete || null;
+        this.onEnd = options.onEnd || null;
 
-        this.currentIndex = 0;
-        this.el.innerText = "";
-        if (!this.useStartTrigger) this.start();
+        // init
+        this.#init();
     }
-
-    //for future development
-    #processNode(node, parentEl) {
-        if (node.nodeType === Node.TEXT_NODE) {
-            const text = node.textContent;
-            for (const char of text) {
-                const span = document.createElement('span');
-                parentEl.appendChild(span);
-                this.#scrambleChar(char, span);
-            }
-        }
-        else if (node.nodeType === Node.ELEMENT_NODE) {
-            const el = document.createElement(node.tagName);
-            for (const attr of node.attributes) {
-                el.setAttribute(attr.name, attr.value);
-            }
-            parentEl.appendChild(el);
-            for (const child of node.childNodes) {
-                this.#processNode(child, el);
-            }
-        }
+    #isRunning = false;
+    #init() {
+        this.currentIndex = 0;
+        this.target.innerText = "";
+        if (!this.useStartTrigger) this.start();
     }
     #addScrambleClasses(el) {
         this.scrambleClasses.forEach(c => {
@@ -82,31 +65,60 @@ class ScrambleTyped {
         const char = this.text[this.currentIndex];
         const span = document.createElement('span');
         this.#addScrambleClasses(span);
-        this.el.appendChild(span);
+        this.target.appendChild(span);
         this.#scrambleChar(char, span);
 
         this.currentIndex++;
         setTimeout(() => (this.#type()), this.typeSpeed);
     }
+    #end() {
+        if (this.restoreOnEnd) {
+            this.target.innerHTML = this.text;
+        }
+        this.#isRunning = false;
+        if (this.onEnd && typeof this.onEnd === 'function') {
+            this.onEnd();
+        }
+    }
+
+    // for future development
+    // #processNode(node, parentEl) {
+    //     if (node.nodeType === Node.TEXT_NODE) {
+    //         const text = node.textContent;
+    //         for (const char of text) {
+    //             const span = document.createElement('span');
+    //             parentEl.appendChild(span);
+    //             this.#scrambleChar(char, span);
+    //         }
+    //     }
+    //     else if (node.nodeType === Node.ELEMENT_NODE) {
+    //         const el = document.createElement(node.tagName);
+    //         for (const attr of node.attributes) {
+    //             el.setAttribute(attr.name, attr.value);
+    //         }
+    //         parentEl.appendChild(el);
+    //         for (const child of node.childNodes) {
+    //             this.#processNode(child, el);
+    //         }
+    //     }
+    // }
 
     // public methods
     start() {
+        if (this.#isRunning) {
+            return;
+        }
         const fullDuration = (this.text.length * this.typeSpeed) + (this.scrambleDuration);
-        if (this.restoreOnEnd) {
-            setTimeout(() => {
-                this.el.innerHTML = this.text;
-            }, (fullDuration + 100));
-        }
-        if (this.onComplete && typeof this.onComplete === 'function') {
-            setTimeout(() => {
-                this.onComplete();
-            }, (fullDuration + 100));
-        }
+        setTimeout(() => {
+            this.#end(); 
+        }, (fullDuration + 200));
+        
         if (this.onStart && typeof this.onStart === 'function') {
             this.onStart();
         }
+        this.#isRunning = true;
     	this.#type();
     }
 }
 
-module.exports = ScrambleTyped
+export default ScrambleTyped;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="index.js"></script>
+    <script src="src/index.js"></script>
     <style>
         * {
             font-family: sans-serif;
@@ -9,17 +9,20 @@
         .scrambling {
             opacity: 0.4;
         }
-        .scrambling-2 {
-            text-decoration: underline;
-        }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             new ScrambleTyped('#scramble', {
                 charset: 'abcdefghijklmnopqrstuvwxyz',
                 scrambleDuration: 200,
-                scrambleClasses: ['scrambling', 'scrambling-2'],
-                preserveSpaces: true
+                scrambleClasses: ['scrambling'],
+                preserveSpaces: true,
+                onStart: () => {
+                    console.log('start');
+                },
+                onEnd: () => {
+                    console.log('end');
+                }
             })
         })
         
