@@ -2,7 +2,8 @@
 class ScrambleTyped {
     constructor(el, options) {
         this.el = typeof el === 'string' ? document.querySelector(el) : el;
-        this.text = options.text || "";
+        this.text = options.text || this.el.innerText;
+        this.useStartTrigger = options.useStartTrigger || false;
         this.typeSpeed = options.typeSpeed || 50;
         this.scrambleDuration = options.scrambleDuration  || 500;
         this.scrambleSpeed = options.scrambleSpeed || 100;
@@ -10,7 +11,8 @@ class ScrambleTyped {
         this.charset = options.charset || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         this.preserveSpaces = options.preserveSpaces || false;
         this.currentIndex = 0;
-        this.type();
+        this.el.innerText = "";
+        if (!this.useStartTrigger) this.start();
     }
 
     //for future development
@@ -74,4 +76,13 @@ class ScrambleTyped {
         this.currentIndex++;
         setTimeout(() => (this.type()), this.typeSpeed);
     }
+    start() {
+        const fullDuration = (this.text.length * this.typeSpeed) + (this.scrambleDuration);
+        setTimeout(() => {
+      	    this.el.innerHTML = this.text;
+        }, (fullDuration + 100));
+    	this.type();
+    }
 }
+
+module.exports = ScrambleTyped

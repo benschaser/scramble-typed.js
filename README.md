@@ -1,2 +1,11 @@
 # scramble-typed.js
-Similar to typed.js, but scrambles letters upon typing them. Gets you in the hacking feels.
+
+A typing-in text scramble effect for unique and engaging animations. Inspired by typed.js.
+
+## Install
+
+Install using npm.
+
+```
+npm install scramble-typed
+```

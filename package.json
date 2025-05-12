@@ -1,0 +1,27 @@
+{
+  "name": "scramble-typed",
+  "version": "1.0.0",
+  "description": "A typing-in text scramble effect for unique and engaging animations.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benschaser/scramble-typed.js.git"
+  },
+  "keywords": [
+    "scramble",
+    "typed",
+    "text",
+    "animation",
+    "hacking",
+    "effect"
+  ],
+  "author": "Ben Schaser",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/benschaser/scramble-typed.js/issues"
+  },
+  "homepage": "https://github.com/benschaser/scramble-typed.js#readme"
+}
