@@ -9,7 +9,7 @@ A pure-js typing-in text scramble effect for unique and engaging animations. Ins
 Link the script in the `head` element of an HTML page.
 
 ```html
-<script src="link"></script>
+<script src="https://cdn.jsdelivr.net/npm/scramble-typed@1.0/dist/scramble-typed.umd.min.js"></script>
 ```
 
 ### Or use NPM
@@ -123,7 +123,7 @@ const hello = new ScrambleTyped("#target-element-id", {
 | **scrambleDuration** | `number` - determines how long letters scramble before settling onto their actual character (in milliseconds)<br>*Default: 500* |
 | **preserveSpaces** | `bool` - when set to `true`, whitespaces do not scramble<br>*Default: false* |
 | **restoreOnEnd** | `bool` - when set to `true`, dissolves separate `span` elements into natural HTML innerText once animation completes<br>*Default: true* |
-| **scrambleClasses** | `[]` - array of classes to be added to characters that are in the scramble state |
+| **scrambleClasses** | `string[]` - array of classes to be added to characters that are in the scramble state |
 | **useStartTrigger** | `bool` - when set to true, waits until `start()` method is called to begin the animation<br>*Default: false* |
 | **onStart** | `function` - custom callback function triggered when animation starts |
 | **onEnd** | `function` - custom callback function triggered when animation ends |

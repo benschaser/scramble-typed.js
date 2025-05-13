@@ -1,6 +1,6 @@
 {
   "name": "scramble-typed",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "A typing-in text scramble effect for unique and engaging animations. Inspired by typed.js.",
   "main": "./dist/scramble-typed.umd.js",
   "scripts": {
