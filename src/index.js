@@ -101,4 +101,4 @@ class ScrambleTyped {
     }
 }
 
-//export default ScrambleTyped;
+export default ScrambleTyped;

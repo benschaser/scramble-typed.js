@@ -45,7 +45,7 @@ You can also customize the set of characters that are randomly scrambled through
 ```js
 const hello = new ScrambleTyped("#target-element-id", {
   text: "You don't have to be a hacker to look like one.",
-  charset: "ABCDabcd1234",
+  charset: "abcABC123",
 });
 ```
 
