@@ -19,9 +19,11 @@ class ScrambleTyped {
         // init
         this.#init();
     }
+    #innerds = "";
     #isRunning = false;
     #init() {
         this.currentIndex = 0;
+        this.#innerds = this.target.innerHTML;
         this.target.innerText = "";
         if (!this.useStartTrigger) this.start();
     }
@@ -81,28 +83,6 @@ class ScrambleTyped {
         }
     }
 
-    // for future development
-    // #processNode(node, parentEl) {
-    //     if (node.nodeType === Node.TEXT_NODE) {
-    //         const text = node.textContent;
-    //         for (const char of text) {
-    //             const span = document.createElement('span');
-    //             parentEl.appendChild(span);
-    //             this.#scrambleChar(char, span);
-    //         }
-    //     }
-    //     else if (node.nodeType === Node.ELEMENT_NODE) {
-    //         const el = document.createElement(node.tagName);
-    //         for (const attr of node.attributes) {
-    //             el.setAttribute(attr.name, attr.value);
-    //         }
-    //         parentEl.appendChild(el);
-    //         for (const child of node.childNodes) {
-    //             this.#processNode(child, el);
-    //         }
-    //     }
-    // }
-
     // public methods
     start() {
         if (this.#isRunning) {
@@ -121,4 +101,4 @@ class ScrambleTyped {
     }
 }
 
-export default ScrambleTyped;
+//export default ScrambleTyped;

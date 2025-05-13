@@ -38,7 +38,7 @@ const hello = new ScrambleTyped("#target-element-id", {
 
 ### Text
 
-By default, ScrambleTyped uses the inner text of the HTML element, however, you can set the final text to be something else entirely.
+By default, ScrambleTyped uses the inner text of the HTML element, however, you can set the final text to be something else entirely. At this point, only plain text is supported. (Rich HTML support is on the docket for future updates)
 
 You can also customize the set of characters that are randomly scrambled through by setting the `charset` to a string of characters.
 
@@ -95,3 +95,39 @@ In your CSS:
   opacity: 0.5;
 }
 ```
+
+### Callbacks
+
+You can hook into the start and end events by defining the `onStart` and `onEnd` functions.
+
+```js
+const hello = new ScrambleTyped("#target-element-id", {
+  onStart: () => {
+    functionToBeRunOnStart();
+  },
+  onEnd: () => {
+    functionToBeRunOnEnd();
+  }
+});
+```
+# Documentation
+
+### Full Options List
+
+|  |  |
+| ---: | :--- |
+| **text** | `string` - the content to be scrambled<br>*Default: innerText* |
+| **charset** | `string` - defines the list of characters to randomly pull from<br>*Default: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'* |
+| **typeSpeed** | `number` - determines how fast the characters type in (in milliseconds)<br>*Default: 50* |
+| **scrambleSpeed** | `number` - specifies the speed at which characters are scrambled (in milliseconds)<br>*Default: 100* |
+| **scrambleDuration** | `number` - determines how long letters scramble before settling onto their actual character (in milliseconds)<br>*Default: 500* |
+| **preserveSpaces** | `bool` - when set to `true`, whitespaces do not scramble<br>*Default: false* |
+| **restoreOnEnd** | `bool` - when set to `true`, dissolves separate `span` elements into natural HTML innerText once animation completes<br>*Default: true* |
+| **scrambleClasses** | `[]` - array of classes to be added to characters that are in the scramble state |
+| **useStartTrigger** | `bool` - when set to true, waits until `start()` method is called to begin the animation<br>*Default: false* |
+| **onStart** | `function` - custom callback function triggered when animation starts |
+| **onEnd** | `function` - custom callback function triggered when animation ends |
+
+### Methods
+
+`start()` - beings animation
