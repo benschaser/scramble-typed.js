@@ -1,3 +1,13 @@
+//preorder traversal
+function traverse(el, callback) {
+    if (!el) return;
+    const children = Array.from(el.children);
+    callback(el);
+    children.forEach(child => {
+        traverse(child, callback);
+    });
+}
+
 
 class ScrambleTyped {
     constructor(el, options) {
@@ -20,11 +30,13 @@ class ScrambleTyped {
         this.#init();
     }
     #innerds = "";
+    #model = null;
     #isRunning = false;
     #init() {
         this.currentIndex = 0;
         this.#innerds = this.target.innerHTML;
-        this.target.innerText = "";
+        this.#model = this.target.cloneNode(true);
+        this.target.innerHTML = "";
         if (!this.useStartTrigger) this.start();
     }
     #addScrambleClasses(el) {
@@ -73,9 +85,21 @@ class ScrambleTyped {
         this.currentIndex++;
         setTimeout(() => (this.#type()), this.typeSpeed);
     }
+    #traverseType() {
+        if (el.nodeType === Node.TEXT_NODE) {
+            this.currentIndex = 0;
+            this.currentText = el.textContent;
+            const span = document.createElement('span');
+            span.textContent = el.textContent;
+        }
+        else {
+            document.createElement(el.tagName);
+            el.parentNode.appendChild(el);
+        }
+    }
     #end() {
         if (this.restoreOnEnd) {
-            this.target.innerHTML = this.text;
+            this.target.innerHTML = this.#innerds;
         }
         this.#isRunning = false;
         if (this.onEnd && typeof this.onEnd === 'function') {
