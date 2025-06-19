@@ -1,4 +1,4 @@
-# scramble-typed.js
+# scramble-typed.js v1.1.2
 
 A pure-js typing-in text scramble effect for unique and engaging animations. Inspired by typed.js.
 
@@ -9,7 +9,7 @@ A pure-js typing-in text scramble effect for unique and engaging animations. Ins
 Link the script in the `head` element of an HTML page.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/scramble-typed@1.0/dist/scramble-typed.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/scramble-typed@1.1/dist/scramble-typed.umd.min.js"></script>
 ```
 
 ### Or use NPM
@@ -38,7 +38,7 @@ const hello = new ScrambleTyped("#target-element-id", {
 
 ### Text
 
-By default, ScrambleTyped uses the inner text of the HTML element, however, you can set the final text to be something else entirely. At this point, only plain text is supported. (Rich HTML support is on the docket for future updates)
+By default, ScrambleTyped uses the inner text contents of the target element and its children, however, you can set the final text to be something else entirely. Note that if the target node has any children at all, the text option will be ignored.
 
 You can also customize the set of characters that are randomly scrambled through by setting the `charset` to a string of characters.
 
@@ -107,26 +107,27 @@ const hello = new ScrambleTyped("#target-element-id", {
   },
   onEnd: () => {
     functionToBeRunOnEnd();
-  }
+  },
 });
 ```
+
 # Documentation
 
 ### Full Options List
 
-|  |  |
-| ---: | :--- |
-| **text** | `string` - the content to be scrambled<br>*Default: innerText* |
-| **charset** | `string` - defines the list of characters to randomly pull from<br>*Default: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'* |
-| **typeSpeed** | `number` - determines how fast the characters type in (in milliseconds)<br>*Default: 50* |
-| **scrambleSpeed** | `number` - specifies the speed at which characters are scrambled (in milliseconds)<br>*Default: 100* |
-| **scrambleDuration** | `number` - determines how long letters scramble before settling onto their actual character (in milliseconds)<br>*Default: 500* |
-| **preserveSpaces** | `bool` - when set to `true`, whitespaces do not scramble<br>*Default: false* |
-| **restoreOnEnd** | `bool` - when set to `true`, dissolves separate `span` elements into natural HTML innerText once animation completes<br>*Default: true* |
-| **scrambleClasses** | `string[]` - array of classes to be added to characters that are in the scramble state |
-| **useStartTrigger** | `bool` - when set to true, waits until `start()` method is called to begin the animation<br>*Default: false* |
-| **onStart** | `function` - custom callback function triggered when animation starts |
-| **onEnd** | `function` - custom callback function triggered when animation ends |
+|                      |                                                                                                                                                |
+| -------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------- |
+|             **text** | `string` - the content to be scrambled<br>_Default: innerText_                                                                                 |
+|          **charset** | `string` - defines the list of characters to randomly pull from<br>_Default: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'_ |
+|        **typeSpeed** | `number` - determines how fast the characters type in (in milliseconds)<br>_Default: 50_                                                       |
+|    **scrambleSpeed** | `number` - specifies the speed at which characters are scrambled (in milliseconds)<br>_Default: 100_                                           |
+| **scrambleDuration** | `number` - determines how long letters scramble before settling onto their actual character (in milliseconds)<br>_Default: 500_                |
+|   **preserveSpaces** | `bool` - when set to `true`, whitespaces do not scramble<br>_Default: false_                                                                   |
+|     **restoreOnEnd** | `bool` - when set to `true`, dissolves separate `span` elements into natural HTML innerText once animation completes<br>_Default: true_        |
+|  **scrambleClasses** | `string[]` - array of classes to be added to characters that are in the scramble state                                                         |
+|  **useStartTrigger** | `bool` - when set to true, waits until `start()` method is called to begin the animation<br>_Default: false_                                   |
+|          **onStart** | `function` - custom callback function triggered when animation starts                                                                          |
+|            **onEnd** | `function` - custom callback function triggered when animation ends                                                                            |
 
 ### Methods
 

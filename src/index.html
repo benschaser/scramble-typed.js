@@ -1,32 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Scramble Typed Test</title>
     <style>
-        * {
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        .scrambling {
-            opacity: 0.5;
-        }
+      * {
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+      .scrambling {
+        opacity: 0.5;
+      }
+      span {
+        outline: 1px solid red;
+      }
     </style>
     <script type="module" src="index.js"></script>
     <script type="module">
-        import ScrambleTyped from './index.js';
+      import ScrambleTyped from "./index.js";
 
-        const scrambleTyped = new ScrambleTyped('#scramble-typed', {
-            typeSpeed: 60,
-            scrambleSpeed: 100,
-            scrambleDuration: 200,
-            scrambleClasses: ['scrambling'],
-            charset: 'abcdefhiklnorstuvxz',
-        });
+      const scrambleTyped = new ScrambleTyped("#scramble-typed", {
+        text: "testing simple case",
+        typeSpeed: 60,
+        scrambleSpeed: 100,
+        scrambleDuration: 200,
+        scrambleClasses: ["scrambling"],
+        charset: "abcdefhiklnorstuvxz",
+      });
+
+      const scrambleTest = new ScrambleTyped("#scramble-test", {
+        typeSpeed: 60,
+        scrambleSpeed: 100,
+        scrambleDuration: 200,
+        scrambleClasses: ["scrambling"],
+        preserveSpaces: true,
+        charset: "abcdefhiklnorstuvxz",
+        onEnd: () => {
+          console.log("ended");
+        },
+      });
     </script>
-</head>
-<body>
-    <h1 id="scramble-typed">Welcome to Scramble Typed</h1>
-</body>
+  </head>
+  <body>
+    <h1 id="scramble-typed"></h1>
+    <br />
+    <div id="scramble-test">
+      <h1>This is</h1>
+      <span>
+        <p>a test. <i>shhhhhh</i></p>
+      </span>
+    </div>
+  </body>
 </html>
