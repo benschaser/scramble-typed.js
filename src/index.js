@@ -3,9 +3,11 @@ class ScrambleTyped {
     this.target = typeof el === "string" ? document.querySelector(el) : el;
     this.text = options.text || this.target.innerText;
     this.useStartTrigger = options.useStartTrigger || false;
-    this.typeSpeed = options.typeSpeed || 50;
-    this.scrambleDuration = options.scrambleDuration || 500;
-    this.scrambleSpeed = options.scrambleSpeed || 100;
+    this.typeSpeed = options.typeSpeed !== undefined ? options.typeSpeed : 50;
+    this.scrambleDuration =
+      options.scrambleDuration !== undefined ? options.scrambleDuration : 500;
+    this.scrambleSpeed =
+      options.scrambleSpeed !== undefined ? options.scrambleSpeed : 100;
     this.scrambleClasses = options.scrambleClasses || [];
     this.charset =
       options.charset ||
@@ -37,7 +39,6 @@ class ScrambleTyped {
     } else {
       this.target.innerHTML = "";
     }
-    console.log(`text length ${this.text.length}`);
     if (!this.useStartTrigger) this.start();
   }
   #addScrambleClasses(el) {

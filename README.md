@@ -1,4 +1,4 @@
-# scramble-typed.js v1.1.2
+# scramble-typed.js v1.1.3
 
 A pure-js typing-in text scramble effect for unique and engaging animations. Inspired by typed.js.
 
